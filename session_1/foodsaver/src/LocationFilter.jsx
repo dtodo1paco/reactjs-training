@@ -15,7 +15,7 @@ class LocationFilter extends Component {
             locations.map( loc => (
               <button className="dropdown-item" type="button">{loc}</button>
             ))
-          }
+            }
         </div>
       </div>
     )
