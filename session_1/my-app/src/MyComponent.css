@@ -1,0 +1,5 @@
+
+
+.MyComponent > .subcomponent {
+    color: red;
+}

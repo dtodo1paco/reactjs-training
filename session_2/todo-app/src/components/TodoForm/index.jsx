@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 class TodoForm extends React.Component {
 
   onSubmit = (e) => {
@@ -20,6 +20,10 @@ class TodoForm extends React.Component {
     )
   }
 
+}
+
+TodoForm.propTypes = {
+  onSubmitTodo: PropTypes.func.isRequired;
 }
 
 export default TodoForm;
