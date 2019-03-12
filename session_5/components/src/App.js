@@ -8,7 +8,7 @@ import Button from './components/StatelessButton';
 import HistoryMessage from './components/HistoryMessage';
 import WrapperConsumer from './components/WrapperConsumer';
 
-import Navlink from './components/Navlink'
+import { Hello, PureHello } from './components/PureHello';
 
 const links = [
   {label:'home', href:'/'},
@@ -21,16 +21,6 @@ class App extends Component {
     return (
       <div className="App">
 
-    <Navlink
-      active
-      href="https://google.com"
-      label="Click here"
-    />
-    <Navlink
-      active={false}
-      href="https://codespaceacademy.com"
-      label="Click there"
-    />
       {/**
        <h3>Wrapper</h3>
        <WrapperConsumer />
@@ -38,7 +28,8 @@ class App extends Component {
       {/** **/ }
         <h3>Pure components</h3>
         <HistoryMessage />
-
+        <Hello />
+        <PureHello />
         <h3>Controlled form</h3>
         <ControlledForm />
         <hr/>
@@ -50,6 +41,7 @@ class App extends Component {
         <h3>Stateless Button</h3>
         <Button type="danger" label="Delete" onClick={() => console.log("button danger clicked")} />
         <Button type="info" label="Send" onClick={() => console.log("button info clicked")} />
+
         {/** **/}
       </div>
     );

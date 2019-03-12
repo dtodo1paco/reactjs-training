@@ -1,9 +1,10 @@
 import React from 'react';
+import withSecret from '../HOCSecret';
 
-class PureHello extends React.PureComponent {
+export class PureHello extends React.PureComponent {
   render() {
     return <h1>Welcome</h1>
   }
-)
+}
 
-export default PureHello;
+export const Hello = withSecret(PureHello);
