@@ -8,19 +8,29 @@ class Counter extends Component {
       counter: 0
     }
   }
+  componentDidMount() {
+    console.log("I have been mounted!");
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+
+    return true;
+  }
 
   incrementCounter = () => {
     console.log("incrementing counter: " + this.state.counter);
     this.setState((state) => { // state is the current state
       // Important: read `state` instead of `this.state` when updating.
-      return {counter: state.counter + 1}
+      const newCounter = state.counter + 1
+      return {counter: newCounter}
     });
-    console.log("counter incremented: " + this.state.counter);
+
   }
 
   incrementCounter4times = () => {
     for (let i=0; i<4; i++) {
-      this.incrementCounter();
+      const a = this.incrementCounter;
+      a();
     }
   }
 
