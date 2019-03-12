@@ -1,0 +1,12 @@
+.button {
+    color: white;
+    font-weight: bold;
+    height: 3em;
+    padding: 1em;
+}
+.danger {
+    background-color: red;
+}
+.info {
+    background-color: cornflowerblue;
+}
