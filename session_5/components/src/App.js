@@ -25,11 +25,13 @@ class App extends Component {
        <h3>Wrapper</h3>
        <WrapperConsumer />
       **/}
-      {/** **/ }
+        <PureHello />
+        <Hello />
+      {/**
         <h3>Pure components</h3>
         <HistoryMessage />
-        <Hello />
-        <PureHello />
+
+
         <h3>Controlled form</h3>
         <ControlledForm />
         <hr/>

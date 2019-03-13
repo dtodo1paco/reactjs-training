@@ -11,7 +11,9 @@ const withSecret = (WrappedComponent) => {
           {...this.props}
           superSecret={'thesecretoflife'}
           onClick={this.handleClick}
-        />
+        >
+          <div>some common content</div>
+        </WrappedComponent>
       );
     }
   }
