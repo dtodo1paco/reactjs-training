@@ -12,6 +12,8 @@ Unfortunately, our developers left the project incomplete. The DownloadElement C
 You should complete DownloadElement Component to make it capable of:
 - download country info when the link is clicked
 - update render with country info
+See the demo 
+![Demo](https://github.com/dtodo1paco/reactjs-training/blob/master/recap_1_8/download-list-app/demo/demo.gif  "Demo")
 
 ### Hints
 
