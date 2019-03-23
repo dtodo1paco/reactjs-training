@@ -1,0 +1,4039 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>jest-stare!</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/diff2html.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jest-stare.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script src="js/diff2html.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/view.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">jest-stare</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="coverage-link" class="nav-link disabled" href="#">Coverage</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="passoff-switch" class="passoff-switch-checkbox" id="lab-passoff-switch" checked>
+                            <label class="onoff-switch-label" for="lab-passoff-switch">
+                                <span class="passoff-switch-inner"></span>
+                                <span class="passoff-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="failoff-switch" class="failoff-switch-checkbox" id="lab-failoff-switch" checked>
+                            <label class="onoff-switch-label" for="lab-failoff-switch">
+                                <span class="failoff-switch-inner"></span>
+                                <span class="failoff-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" disabled>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Search</button>
+                </form> -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container">
+
+        <h1 class="mt-5"></h1>
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <canvas id="test-suites-canvas" width="100" height="100"></canvas>
+                <h2>Test Suites</h2>
+                <div class="list-group">
+                    <p id="test-suites-results" class="list-group-item list-group-item-action">8 passed, 8 total</p>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <canvas id="tests-canvas" width="100" height="100"></canvas>
+                <h2>Tests</h2>
+                <div class="list-group">
+                    <p id="tests-results" class="list-group-item list-group-item-action">32 passed, 32 total</p>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4" id="snapshots-group">
+                <canvas id="snapshots-canvas" width="100" height="100"></canvas>
+                <h2>Snapshots</h2>
+                <div class="list-group">
+                    <p id="snapshots-results" class="list-group-item list-group-item-action">4 passed, 4 total</p>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+
+        <div id="loading-info" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100" style="width: 100%"></div>
+        </div>
+
+        <div class="d-none" id="test-config">{
+  &quot;resultDir&quot;: &quot;.&#x2F;jest-stare&#x2F;&quot;,
+  &quot;resultHtml&quot;: &quot;index.html&quot;,
+  &quot;resultJson&quot;: &quot;jest-results.json&quot;
+}</div>
+        <div class="d-none" id="test-results">{
+  &quot;numFailedTestSuites&quot;: 0,
+  &quot;numFailedTests&quot;: 0,
+  &quot;numPassedTestSuites&quot;: 8,
+  &quot;numPassedTests&quot;: 32,
+  &quot;numPendingTestSuites&quot;: 0,
+  &quot;numPendingTests&quot;: 0,
+  &quot;numRuntimeErrorTestSuites&quot;: 0,
+  &quot;numTotalTestSuites&quot;: 8,
+  &quot;numTotalTests&quot;: 32,
+  &quot;openHandles&quot;: [],
+  &quot;snapshot&quot;: {
+    &quot;added&quot;: 0,
+    &quot;didUpdate&quot;: false,
+    &quot;failure&quot;: false,
+    &quot;filesAdded&quot;: 0,
+    &quot;filesRemoved&quot;: 0,
+    &quot;filesUnmatched&quot;: 0,
+    &quot;filesUpdated&quot;: 0,
+    &quot;matched&quot;: 4,
+    &quot;total&quot;: 4,
+    &quot;unchecked&quot;: 0,
+    &quot;uncheckedKeysByFile&quot;: [],
+    &quot;unmatched&quot;: 0,
+    &quot;updated&quot;: 0
+  },
+  &quot;startTime&quot;: 1553326991151,
+  &quot;success&quot;: true,
+  &quot;testResults&quot;: [
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 7,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993027,
+        &quot;start&quot;: 1553326992082
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 1,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;MyComponent&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent snapshot&quot;
+          ],
+          &quot;duration&quot;: 9,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent snapshot should render correctly&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render correctly&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent snapshot&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent snapshot should render initial layout&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render initial layout&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent&quot;
+          ],
+          &quot;duration&quot;: 2,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent should initialize component state&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should initialize component state&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent should create an entry in component state&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should create an entry in component state&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent should create an entry in component state with the event value&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should create an entry in component state with the event value&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent render a document title&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;render a document title&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;MyComponent&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;MyComponent render expected classNames&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;render expected classNames&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 1,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993155,
+        &quot;start&quot;: 1553326992121
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 0,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;SimpleComponent&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;SimpleComponent&quot;
+          ],
+          &quot;duration&quot;: 10,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;SimpleComponent should render my component&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render my component&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 4,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993165,
+        &quot;start&quot;: 1553326992116
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 1,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ListItem&#x2F;tests&#x2F;intex.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ListItem basics&quot;
+          ],
+          &quot;duration&quot;: 9,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ListItem basics should render correctly&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render correctly&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ListItem basics&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ListItem basics should match snapshot&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should match snapshot&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ListItem structure&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ListItem structure should have a li&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should have a li&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ListItem structure&quot;
+          ],
+          &quot;duration&quot;: 3,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ListItem structure should render prop item as a li element&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render prop item as a li element&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 2,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993228,
+        &quot;start&quot;: 1553326992097
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 0,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;List&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Component tests&quot;
+          ],
+          &quot;duration&quot;: 69,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Component tests renders list-items&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders list-items&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Component tests&quot;
+          ],
+          &quot;duration&quot;: 24,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Component tests renders list-items&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders list-items&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 5,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993746,
+        &quot;start&quot;: 1553326992139
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 1,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;Counter&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Counter basics&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Counter basics should render correctly&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render correctly&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Counter basics&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Counter basics should match snapshot&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should match snapshot&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Counter structure&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Counter structure should have a button&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should have a button&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Counter behavior&quot;
+          ],
+          &quot;duration&quot;: 2,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Counter behavior should handle button click and update state&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should handle button click and update state&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Counter behavior&quot;
+          ],
+          &quot;duration&quot;: 2,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Counter behavior should render using state&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render using state&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 8,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993809,
+        &quot;start&quot;: 1553326992089
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 1,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ApiComponent&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent basics&quot;
+          ],
+          &quot;duration&quot;: 6,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent basics should render correctly&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render correctly&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent basics&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent basics should render initial layout&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render initial layout&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent basics&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent basics should NOT initialize component state&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should NOT initialize component state&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent basics&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent basics receive props correctly&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;receive props correctly&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent event handling&quot;
+          ],
+          &quot;duration&quot;: 6,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent event handling call API when button clicked&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;call API when button clicked&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent event handling&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent event handling call API when button clicked with correct params&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;call API when button clicked with correct params&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent state update&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent state update call API when button clicked set state to response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;call API when button clicked set state to response&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;ApiComponent state update&quot;
+          ],
+          &quot;duration&quot;: 2,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;ApiComponent state update call API when button clicked set state to response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;call API when button clicked set state to response&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 4,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326993890,
+        &quot;start&quot;: 1553326993118
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 0,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;FullList&#x2F;tests&#x2F;index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;FullList tests&quot;
+          ],
+          &quot;duration&quot;: 6,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;FullList tests renders list-items&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders list-items&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;FullList tests&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;FullList tests should render a span instead of a ul&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;should render a span instead of a ul&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;FullList tests&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;FullList tests renders a list item&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders a list item&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;FullList tests&quot;
+          ],
+          &quot;duration&quot;: 1,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;FullList tests renders correct text in item&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders correct text in item&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    },
+    {
+      &quot;console&quot;: [],
+      &quot;failureMessage&quot;: null,
+      &quot;numFailingTests&quot;: 0,
+      &quot;numPassingTests&quot;: 1,
+      &quot;numPendingTests&quot;: 0,
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1553326994474,
+        &quot;start&quot;: 1553326992122
+      },
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 0,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;App&#x2F;tests&#x2F;App.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;App&quot;
+          ],
+          &quot;duration&quot;: 22,
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;App renders without crashing&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;renders without crashing&quot;
+        }
+      ],
+      &quot;sourceMaps&quot;: {},
+      &quot;skipped&quot;: false,
+      &quot;leaks&quot;: false
+    }
+  ],
+  &quot;wasInterrupted&quot;: false,
+  &quot;coverageMap&quot;: {
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;setupTests.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;setupTests.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 21
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 38
+          }
+        }
+      },
+      &quot;fnMap&quot;: {},
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 8,
+        &quot;1&quot;: 8
+      },
+      &quot;f&quot;: {},
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;d3ca36151d698a6281231970c9c3d2674c1fc270&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;MyComponent&#x2F;index.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;MyComponent&#x2F;index.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 17
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 31
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 51
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 14,
+            &quot;column&quot;: 7
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 17,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 25,
+            &quot;column&quot;: 5
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 22,
+            &quot;column&quot;: 32
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 22,
+            &quot;column&quot;: 55
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 29,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 31,
+            &quot;column&quot;: 1
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 9,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 5
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 22
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 11
+        },
+        &quot;2&quot;: {
+          &quot;name&quot;: &quot;(anonymous_2)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 26,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 16
+        },
+        &quot;3&quot;: {
+          &quot;name&quot;: &quot;(anonymous_3)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 20
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 21
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 31
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 56
+            }
+          },
+          &quot;line&quot;: 22
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 8,
+        &quot;1&quot;: 8,
+        &quot;2&quot;: 8,
+        &quot;3&quot;: 2,
+        &quot;4&quot;: 10,
+        &quot;5&quot;: 2,
+        &quot;6&quot;: 2
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 8,
+        &quot;1&quot;: 2,
+        &quot;2&quot;: 10,
+        &quot;3&quot;: 2
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;cad105d6c641ab0c3c964d7c835e789a72567b4d&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;SimpleComponent&#x2F;index.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;SimpleComponent&#x2F;index.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 17
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 5
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 6,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 4
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 8,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 8,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 8,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 14,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 8
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 1,
+        &quot;1&quot;: 1
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 1,
+        &quot;1&quot;: 1
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;906d8a9f0546350d6c6a315b5fd95476d22bb866&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ListItem&#x2F;index.jsx&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ListItem&#x2F;index.jsx&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 19
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 24
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 42
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 34
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 10,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 2
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;ListItem&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 9
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 17
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 25
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 7,
+              &quot;column&quot;: 1
+            }
+          },
+          &quot;line&quot;: 4
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 10,
+        &quot;1&quot;: 10,
+        &quot;2&quot;: 2,
+        &quot;3&quot;: 2
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 10
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;653c67e9c3148814479e7a7665e462c6e058ca18&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;List&#x2F;index.jsx&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;List&#x2F;index.jsx&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 20
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 25
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 3
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 67
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 11,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 15,
+            &quot;column&quot;: 4
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 25
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 60
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 18,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 20,
+            &quot;column&quot;: 2
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 22,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 2
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;List&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 9
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 13
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 5,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 1
+            }
+          },
+          &quot;line&quot;: 5
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 17
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 18
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 25
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 60
+            }
+          },
+          &quot;line&quot;: 13
+        }
+      },
+      &quot;branchMap&quot;: {
+        &quot;0&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 7,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 9,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 7,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 9,
+                &quot;column&quot;: 3
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 7,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 9,
+                &quot;column&quot;: 3
+              }
+            }
+          ],
+          &quot;line&quot;: 7
+        }
+      },
+      &quot;s&quot;: {
+        &quot;0&quot;: 2,
+        &quot;1&quot;: 2,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 2,
+        &quot;4&quot;: 6,
+        &quot;5&quot;: 1,
+        &quot;6&quot;: 1
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 2,
+        &quot;1&quot;: 6
+      },
+      &quot;b&quot;: {
+        &quot;0&quot;: [
+          0,
+          2
+        ]
+      },
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;143e178bb99f989e5794b46b828c64f254f55489&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;Counter&#x2F;index.jsx&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;Counter&#x2F;index.jsx&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 17
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 6
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 65
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 34
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 62
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 16,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 22,
+            &quot;column&quot;: 6
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 25,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 25,
+            &quot;column&quot;: 32
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 26,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 26,
+            &quot;column&quot;: 22
+          }
+        },
+        &quot;7&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 27,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 27,
+            &quot;column&quot;: 25
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 9,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 4
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 14
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 15
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 20
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 11
+        },
+        &quot;2&quot;: {
+          &quot;name&quot;: &quot;(anonymous_2)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 18
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 19
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 34
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 62
+            }
+          },
+          &quot;line&quot;: 12
+        },
+        &quot;3&quot;: {
+          &quot;name&quot;: &quot;(anonymous_3)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 15
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 6,
+        &quot;1&quot;: 6,
+        &quot;2&quot;: 2,
+        &quot;3&quot;: 2,
+        &quot;4&quot;: 8,
+        &quot;5&quot;: 2,
+        &quot;6&quot;: 2,
+        &quot;7&quot;: 2
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 6,
+        &quot;1&quot;: 2,
+        &quot;2&quot;: 2,
+        &quot;3&quot;: 8
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;fe4ba77347f3b751c696b401388e36e59619ffaf&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ApiComponent&#x2F;index.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ApiComponent&#x2F;index.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 17
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 52
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 10,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 10,
+            &quot;column&quot;: 51
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 14,
+            &quot;column&quot;: 21
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 14,
+            &quot;column&quot;: 23
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 15,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 20,
+            &quot;column&quot;: 5
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 16,
+            &quot;column&quot;: 19
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 16,
+            &quot;column&quot;: 50
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 17,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 17,
+            &quot;column&quot;: 31
+          }
+        },
+        &quot;7&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 19,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 19,
+            &quot;column&quot;: 26
+          }
+        },
+        &quot;8&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 21,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 21,
+            &quot;column&quot;: 28
+          }
+        },
+        &quot;9&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 25
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 35
+          }
+        },
+        &quot;10&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 25,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 31,
+            &quot;column&quot;: 5
+          }
+        },
+        &quot;11&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 35,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 37,
+            &quot;column&quot;: 1
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 7,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 7,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 7,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 11,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 7
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 28
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 13
+        },
+        &quot;2&quot;: {
+          &quot;name&quot;: &quot;(anonymous_2)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 32,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 23
+        }
+      },
+      &quot;branchMap&quot;: {
+        &quot;0&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 29,
+              &quot;column&quot;: 10
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 29,
+              &quot;column&quot;: 57
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 29,
+                &quot;column&quot;: 10
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 29,
+                &quot;column&quot;: 18
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 29,
+                &quot;column&quot;: 22
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 29,
+                &quot;column&quot;: 57
+              }
+            }
+          ],
+          &quot;line&quot;: 29
+        }
+      },
+      &quot;s&quot;: {
+        &quot;0&quot;: 9,
+        &quot;1&quot;: 9,
+        &quot;2&quot;: 9,
+        &quot;3&quot;: 4,
+        &quot;4&quot;: 4,
+        &quot;5&quot;: 4,
+        &quot;6&quot;: 4,
+        &quot;7&quot;: 0,
+        &quot;8&quot;: 4,
+        &quot;9&quot;: 13,
+        &quot;10&quot;: 13,
+        &quot;11&quot;: 2
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 9,
+        &quot;1&quot;: 4,
+        &quot;2&quot;: 13
+      },
+      &quot;b&quot;: {
+        &quot;0&quot;: [
+          13,
+          4
+        ]
+      },
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;2537030f7c37afd0a5522239e1f84583a6685be8&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;modules&#x2F;fetchRemote.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;modules&#x2F;fetchRemote.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 2,
+            &quot;column&quot;: 19
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 2,
+            &quot;column&quot;: 31
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 2,
+            &quot;column&quot;: 28
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 2,
+            &quot;column&quot;: 31
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 4,
+            &quot;column&quot;: 25
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 1
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 15
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 31
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 25
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 42
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 24
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 2,
+              &quot;column&quot;: 19
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 2,
+              &quot;column&quot;: 20
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 2,
+              &quot;column&quot;: 28
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 2,
+              &quot;column&quot;: 31
+            }
+          },
+          &quot;line&quot;: 2
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 25
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 26
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 39
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 8,
+              &quot;column&quot;: 1
+            }
+          },
+          &quot;line&quot;: 4
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 2,
+        &quot;1&quot;: 0,
+        &quot;2&quot;: 2,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 0,
+        &quot;1&quot;: 0
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;9db99a27f450c595029736bc8d0e4afc1cec6206&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;FullList&#x2F;index.jsx&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;FullList&#x2F;index.jsx&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 20
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 25
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 6,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 8,
+            &quot;column&quot;: 3
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 7,
+            &quot;column&quot;: 67
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 10,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 15,
+            &quot;column&quot;: 4
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 51
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 18,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 20,
+            &quot;column&quot;: 2
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 22,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 2
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;List&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 9
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 13
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 4,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 1
+            }
+          },
+          &quot;line&quot;: 4
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 17
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 18
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 8
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 13,
+              &quot;column&quot;: 51
+            }
+          },
+          &quot;line&quot;: 13
+        }
+      },
+      &quot;branchMap&quot;: {
+        &quot;0&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 6,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 8,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 8,
+                &quot;column&quot;: 3
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 8,
+                &quot;column&quot;: 3
+              }
+            }
+          ],
+          &quot;line&quot;: 6
+        },
+        &quot;1&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 6,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 6,
+              &quot;column&quot;: 33
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 11
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 15
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 6,
+                &quot;column&quot;: 33
+              }
+            }
+          ],
+          &quot;line&quot;: 6
+        }
+      },
+      &quot;s&quot;: {
+        &quot;0&quot;: 6,
+        &quot;1&quot;: 6,
+        &quot;2&quot;: 2,
+        &quot;3&quot;: 4,
+        &quot;4&quot;: 11,
+        &quot;5&quot;: 2,
+        &quot;6&quot;: 2
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 6,
+        &quot;1&quot;: 11
+      },
+      &quot;b&quot;: {
+        &quot;0&quot;: [
+          2,
+          4
+        ],
+        &quot;1&quot;: [
+          6,
+          6
+        ]
+      },
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;7cc4336904605a4f6c8ba8700e392b3b82928473&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;App&#x2F;index.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;App&#x2F;index.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 13
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 1
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 17,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 27,
+            &quot;column&quot;: 6
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 16,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 28,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 16
+        }
+      },
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 1,
+        &quot;1&quot;: 1
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 1
+      },
+      &quot;b&quot;: {},
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;16f4952df32dd3499ad6bacdd97389c5ef17a266&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ApiForBeginners&#x2F;index.jsx&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;components&#x2F;ApiForBeginners&#x2F;index.jsx&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 4,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 4,
+            &quot;column&quot;: 17
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 9,
+            &quot;column&quot;: 6
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 35
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 14,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 32,
+            &quot;column&quot;: 9
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 15,
+            &quot;column&quot;: 19
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 15,
+            &quot;column&quot;: 29
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 18,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 21,
+            &quot;column&quot;: 11
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 27,
+            &quot;column&quot;: 11
+          }
+        },
+        &quot;7&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 31,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 31,
+            &quot;column&quot;: 49
+          }
+        },
+        &quot;8&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 36,
+            &quot;column&quot;: 37
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 36,
+            &quot;column&quot;: 47
+          }
+        },
+        &quot;9&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 37,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 42,
+            &quot;column&quot;: 8
+          }
+        },
+        &quot;10&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 38,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 42,
+            &quot;column&quot;: 8
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;(anonymous_0)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 3,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 3,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 3,
+              &quot;column&quot;: 21
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 10,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 3
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 16
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 17
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 12,
+              &quot;column&quot;: 22
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 33,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 12
+        },
+        &quot;2&quot;: {
+          &quot;name&quot;: &quot;(anonymous_2)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 12
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 13
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 19
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 15,
+              &quot;column&quot;: 29
+            }
+          },
+          &quot;line&quot;: 15
+        },
+        &quot;3&quot;: {
+          &quot;name&quot;: &quot;(anonymous_3)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 17,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 17,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 17,
+              &quot;column&quot;: 18
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 22,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;line&quot;: 17
+        },
+        &quot;4&quot;: {
+          &quot;name&quot;: &quot;(anonymous_4)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 17
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 28,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;line&quot;: 23
+        },
+        &quot;5&quot;: {
+          &quot;name&quot;: &quot;(anonymous_5)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 30,
+              &quot;column&quot;: 14
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 30,
+              &quot;column&quot;: 15
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 30,
+              &quot;column&quot;: 19
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 32,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;line&quot;: 30
+        },
+        &quot;6&quot;: {
+          &quot;name&quot;: &quot;(anonymous_6)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 35,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 35,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 35,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 44,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;line&quot;: 35
+        }
+      },
+      &quot;branchMap&quot;: {
+        &quot;0&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 37,
+              &quot;column&quot;: 4
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 42,
+              &quot;column&quot;: 8
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 37,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 42,
+                &quot;column&quot;: 8
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 37,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 42,
+                &quot;column&quot;: 8
+              }
+            }
+          ],
+          &quot;line&quot;: 37
+        }
+      },
+      &quot;s&quot;: {
+        &quot;0&quot;: 1,
+        &quot;1&quot;: 1,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0,
+        &quot;6&quot;: 0,
+        &quot;7&quot;: 0,
+        &quot;8&quot;: 1,
+        &quot;9&quot;: 1,
+        &quot;10&quot;: 1
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 1,
+        &quot;1&quot;: 0,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0,
+        &quot;6&quot;: 1
+      },
+      &quot;b&quot;: {
+        &quot;0&quot;: [
+          1,
+          0
+        ]
+      },
+      &quot;_coverageSchema&quot;: &quot;332fd63041d2c1bcb487cc26dd0d5f7d97098a6c&quot;,
+      &quot;hash&quot;: &quot;cfe154ede51aeaa9210fcda1ef78c445bd16acf3&quot;
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;index.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;index.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 1,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 2,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 3,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 4,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 5,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 12,
+            &quot;column&quot;: 0
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        }
+      },
+      &quot;fnMap&quot;: {},
+      &quot;branchMap&quot;: {},
+      &quot;s&quot;: {
+        &quot;0&quot;: 0,
+        &quot;1&quot;: 0,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0
+      },
+      &quot;f&quot;: {},
+      &quot;b&quot;: {}
+    },
+    &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;serviceWorker.js&quot;: {
+      &quot;path&quot;: &quot;&#x2F;BAR&#x2F;WORKSPACE&#x2F;CODESPACE&#x2F;REACT&#x2F;REPO&#x2F;session_12&#x2F;testing-app&#x2F;src&#x2F;serviceWorker.js&quot;,
+      &quot;statementMap&quot;: {
+        &quot;0&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 20
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 13,
+            &quot;column&quot;: 0
+          }
+        },
+        &quot;1&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 24,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 54,
+            &quot;column&quot;: 3
+          }
+        },
+        &quot;2&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 26,
+            &quot;column&quot;: 22
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 26,
+            &quot;column&quot;: 4
+          }
+        },
+        &quot;3&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 27,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 32,
+            &quot;column&quot;: 5
+          }
+        },
+        &quot;4&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 31,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;5&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 34,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;6&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 35,
+            &quot;column&quot;: 21
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 35,
+            &quot;column&quot;: 6
+          }
+        },
+        &quot;7&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 37,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 52,
+            &quot;column&quot;: 7
+          }
+        },
+        &quot;8&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 39,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 37,
+            &quot;column&quot;: 23
+          }
+        },
+        &quot;9&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 43,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;10&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 44,
+            &quot;column&quot;: 10
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;11&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 51,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;12&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 58,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;13&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 61,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;14&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 62,
+            &quot;column&quot;: 33
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 62,
+            &quot;column&quot;: 8
+          }
+        },
+        &quot;15&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 63,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 65,
+            &quot;column&quot;: 9
+          }
+        },
+        &quot;16&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 64,
+            &quot;column&quot;: 10
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;17&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 66,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;18&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 67,
+            &quot;column&quot;: 10
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 92,
+            &quot;column&quot;: 11
+          }
+        },
+        &quot;19&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 68,
+            &quot;column&quot;: 12
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 91,
+            &quot;column&quot;: 13
+          }
+        },
+        &quot;20&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 72,
+            &quot;column&quot;: 14
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 68,
+            &quot;column&quot;: 52
+          }
+        },
+        &quot;21&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 78,
+            &quot;column&quot;: 14
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 80,
+            &quot;column&quot;: 15
+          }
+        },
+        &quot;22&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 79,
+            &quot;column&quot;: 16
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;23&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 85,
+            &quot;column&quot;: 14
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 81,
+            &quot;column&quot;: 19
+          }
+        },
+        &quot;24&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 88,
+            &quot;column&quot;: 14
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 90,
+            &quot;column&quot;: 15
+          }
+        },
+        &quot;25&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 89,
+            &quot;column&quot;: 16
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;26&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 97,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;27&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 103,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;28&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 106,
+            &quot;column&quot;: 26
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 106,
+            &quot;column&quot;: 6
+          }
+        },
+        &quot;29&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 107,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 120,
+            &quot;column&quot;: 7
+          }
+        },
+        &quot;30&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 112,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;31&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 113,
+            &quot;column&quot;: 10
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;32&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 114,
+            &quot;column&quot;: 12
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;33&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 119,
+            &quot;column&quot;: 8
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;34&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 123,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;35&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 130,
+            &quot;column&quot;: 2
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: 134,
+            &quot;column&quot;: 3
+          }
+        },
+        &quot;36&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 131,
+            &quot;column&quot;: 4
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        },
+        &quot;37&quot;: {
+          &quot;start&quot;: {
+            &quot;line&quot;: 132,
+            &quot;column&quot;: 6
+          },
+          &quot;end&quot;: {
+            &quot;line&quot;: null,
+            &quot;column&quot;: -1
+          }
+        }
+      },
+      &quot;fnMap&quot;: {
+        &quot;0&quot;: {
+          &quot;name&quot;: &quot;register&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 16
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 23,
+              &quot;column&quot;: 33
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 55,
+              &quot;column&quot;: 1
+            }
+          }
+        },
+        &quot;1&quot;: {
+          &quot;name&quot;: &quot;(anonymous_1)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 34,
+              &quot;column&quot;: 36
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 34,
+              &quot;column&quot;: 41
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 34,
+              &quot;column&quot;: 42
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 34,
+              &quot;column&quot;: 4
+            }
+          }
+        },
+        &quot;2&quot;: {
+          &quot;name&quot;: &quot;(anonymous_2)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 43,
+              &quot;column&quot;: 43
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 43,
+              &quot;column&quot;: 48
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 43,
+              &quot;column&quot;: 49
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 43,
+              &quot;column&quot;: 8
+            }
+          }
+        },
+        &quot;3&quot;: {
+          &quot;name&quot;: &quot;registerValidSW&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 57,
+              &quot;column&quot;: 9
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 57,
+              &quot;column&quot;: 0
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 57,
+              &quot;column&quot;: 40
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 99,
+              &quot;column&quot;: 1
+            }
+          }
+        },
+        &quot;4&quot;: {
+          &quot;name&quot;: &quot;(anonymous_4)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 60,
+              &quot;column&quot;: 10
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 60,
+              &quot;column&quot;: 21
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 60,
+              &quot;column&quot;: 26
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 58,
+              &quot;column&quot;: 2
+            }
+          }
+        },
+        &quot;5&quot;: {
+          &quot;name&quot;: &quot;(anonymous_5)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 61,
+              &quot;column&quot;: 35
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 61,
+              &quot;column&quot;: 40
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 61,
+              &quot;column&quot;: 41
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 61,
+              &quot;column&quot;: 6
+            }
+          }
+        },
+        &quot;6&quot;: {
+          &quot;name&quot;: &quot;(anonymous_6)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 66,
+              &quot;column&quot;: 41
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 66,
+              &quot;column&quot;: 46
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 66,
+              &quot;column&quot;: 47
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 66,
+              &quot;column&quot;: 8
+            }
+          }
+        },
+        &quot;7&quot;: {
+          &quot;name&quot;: &quot;(anonymous_7)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 96,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 96,
+              &quot;column&quot;: 15
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 96,
+              &quot;column&quot;: 20
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 58,
+              &quot;column&quot;: 2
+            }
+          }
+        },
+        &quot;8&quot;: {
+          &quot;name&quot;: &quot;checkValidServiceWorker&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 101,
+              &quot;column&quot;: 9
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 101,
+              &quot;column&quot;: 0
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 101,
+              &quot;column&quot;: 48
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 127,
+              &quot;column&quot;: 1
+            }
+          }
+        },
+        &quot;9&quot;: {
+          &quot;name&quot;: &quot;(anonymous_9)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 104,
+              &quot;column&quot;: 10
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 104,
+              &quot;column&quot;: 17
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 104,
+              &quot;column&quot;: 22
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 103,
+              &quot;column&quot;: 2
+            }
+          }
+        },
+        &quot;10&quot;: {
+          &quot;name&quot;: &quot;(anonymous_10)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 112,
+              &quot;column&quot;: 43
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 112,
+              &quot;column&quot;: 54
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 112,
+              &quot;column&quot;: 59
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 112,
+              &quot;column&quot;: 8
+            }
+          }
+        },
+        &quot;11&quot;: {
+          &quot;name&quot;: &quot;(anonymous_11)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 113,
+              &quot;column&quot;: 41
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 113,
+              &quot;column&quot;: 46
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 113,
+              &quot;column&quot;: 47
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 113,
+              &quot;column&quot;: 10
+            }
+          }
+        },
+        &quot;12&quot;: {
+          &quot;name&quot;: &quot;(anonymous_12)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 122,
+              &quot;column&quot;: 11
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 122,
+              &quot;column&quot;: 16
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 122,
+              &quot;column&quot;: 17
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 103,
+              &quot;column&quot;: 2
+            }
+          }
+        },
+        &quot;13&quot;: {
+          &quot;name&quot;: &quot;unregister&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 129,
+              &quot;column&quot;: 16
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 129,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 129,
+              &quot;column&quot;: 29
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 135,
+              &quot;column&quot;: 1
+            }
+          }
+        },
+        &quot;14&quot;: {
+          &quot;name&quot;: &quot;(anonymous_14)&quot;,
+          &quot;decl&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 131,
+              &quot;column&quot;: 39
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 131,
+              &quot;column&quot;: 50
+            }
+          },
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 131,
+              &quot;column&quot;: 55
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 131,
+              &quot;column&quot;: 4
+            }
+          }
+        }
+      },
+      &quot;branchMap&quot;: {
+        &quot;0&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 14,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 14,
+              &quot;column&quot;: 1
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 14,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 14,
+                &quot;column&quot;: 1
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 16,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 14,
+                &quot;column&quot;: 2
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 18,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 13,
+                &quot;column&quot;: 27
+              }
+            }
+          ]
+        },
+        &quot;1&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 24,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 54,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 54,
+                &quot;column&quot;: 3
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 54,
+                &quot;column&quot;: 3
+              }
+            }
+          ]
+        },
+        &quot;2&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 24,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 24,
+              &quot;column&quot;: 5
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 5
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 47
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 24,
+                &quot;column&quot;: 2
+              }
+            }
+          ]
+        },
+        &quot;3&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 27,
+              &quot;column&quot;: 4
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 32,
+              &quot;column&quot;: 5
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 27,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 32,
+                &quot;column&quot;: 5
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 27,
+                &quot;column&quot;: 4
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 32,
+                &quot;column&quot;: 5
+              }
+            }
+          ]
+        },
+        &quot;4&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 37,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 52,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 37,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 52,
+                &quot;column&quot;: 7
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 37,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 52,
+                &quot;column&quot;: 7
+              }
+            }
+          ]
+        },
+        &quot;5&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 63,
+              &quot;column&quot;: 8
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 65,
+              &quot;column&quot;: 9
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 63,
+                &quot;column&quot;: 8
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 65,
+                &quot;column&quot;: 9
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 63,
+                &quot;column&quot;: 8
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 65,
+                &quot;column&quot;: 9
+              }
+            }
+          ]
+        },
+        &quot;6&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 67,
+              &quot;column&quot;: 10
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 92,
+              &quot;column&quot;: 11
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 67,
+                &quot;column&quot;: 10
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 92,
+                &quot;column&quot;: 11
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 67,
+                &quot;column&quot;: 10
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 92,
+                &quot;column&quot;: 11
+              }
+            }
+          ]
+        },
+        &quot;7&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 68,
+              &quot;column&quot;: 12
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 91,
+              &quot;column&quot;: 13
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 68,
+                &quot;column&quot;: 12
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 91,
+                &quot;column&quot;: 13
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 68,
+                &quot;column&quot;: 12
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 91,
+                &quot;column&quot;: 13
+              }
+            }
+          ]
+        },
+        &quot;8&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 78,
+              &quot;column&quot;: 14
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 80,
+              &quot;column&quot;: 15
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 14
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 80,
+                &quot;column&quot;: 15
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 14
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 80,
+                &quot;column&quot;: 15
+              }
+            }
+          ]
+        },
+        &quot;9&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 78,
+              &quot;column&quot;: 18
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 78,
+              &quot;column&quot;: 24
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 18
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 24
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 28
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 78,
+                &quot;column&quot;: 14
+              }
+            }
+          ]
+        },
+        &quot;10&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 88,
+              &quot;column&quot;: 14
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 90,
+              &quot;column&quot;: 15
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 14
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 90,
+                &quot;column&quot;: 15
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 14
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 90,
+                &quot;column&quot;: 15
+              }
+            }
+          ]
+        },
+        &quot;11&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 88,
+              &quot;column&quot;: 18
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 88,
+              &quot;column&quot;: 24
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 18
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 24
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 28
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 88,
+                &quot;column&quot;: 14
+              }
+            }
+          ]
+        },
+        &quot;12&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 107,
+              &quot;column&quot;: 6
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 120,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 107,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 120,
+                &quot;column&quot;: 7
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 107,
+                &quot;column&quot;: 6
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 120,
+                &quot;column&quot;: 7
+              }
+            }
+          ]
+        },
+        &quot;13&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 108,
+              &quot;column&quot;: 8
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 108,
+              &quot;column&quot;: 7
+            }
+          },
+          &quot;type&quot;: &quot;binary-expr&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 108,
+                &quot;column&quot;: 8
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 108,
+                &quot;column&quot;: 7
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 109,
+                &quot;column&quot;: 9
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 109,
+                &quot;column&quot;: 8
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 109,
+                &quot;column&quot;: 32
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 107,
+                &quot;column&quot;: 6
+              }
+            }
+          ]
+        },
+        &quot;14&quot;: {
+          &quot;loc&quot;: {
+            &quot;start&quot;: {
+              &quot;line&quot;: 130,
+              &quot;column&quot;: 2
+            },
+            &quot;end&quot;: {
+              &quot;line&quot;: 134,
+              &quot;column&quot;: 3
+            }
+          },
+          &quot;type&quot;: &quot;if&quot;,
+          &quot;locations&quot;: [
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 130,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 134,
+                &quot;column&quot;: 3
+              }
+            },
+            {
+              &quot;start&quot;: {
+                &quot;line&quot;: 130,
+                &quot;column&quot;: 2
+              },
+              &quot;end&quot;: {
+                &quot;line&quot;: 134,
+                &quot;column&quot;: 3
+              }
+            }
+          ]
+        }
+      },
+      &quot;s&quot;: {
+        &quot;0&quot;: 0,
+        &quot;1&quot;: 0,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0,
+        &quot;6&quot;: 0,
+        &quot;7&quot;: 0,
+        &quot;8&quot;: 0,
+        &quot;9&quot;: 0,
+        &quot;10&quot;: 0,
+        &quot;11&quot;: 0,
+        &quot;12&quot;: 0,
+        &quot;13&quot;: 0,
+        &quot;14&quot;: 0,
+        &quot;15&quot;: 0,
+        &quot;16&quot;: 0,
+        &quot;17&quot;: 0,
+        &quot;18&quot;: 0,
+        &quot;19&quot;: 0,
+        &quot;20&quot;: 0,
+        &quot;21&quot;: 0,
+        &quot;22&quot;: 0,
+        &quot;23&quot;: 0,
+        &quot;24&quot;: 0,
+        &quot;25&quot;: 0,
+        &quot;26&quot;: 0,
+        &quot;27&quot;: 0,
+        &quot;28&quot;: 0,
+        &quot;29&quot;: 0,
+        &quot;30&quot;: 0,
+        &quot;31&quot;: 0,
+        &quot;32&quot;: 0,
+        &quot;33&quot;: 0,
+        &quot;34&quot;: 0,
+        &quot;35&quot;: 0,
+        &quot;36&quot;: 0,
+        &quot;37&quot;: 0
+      },
+      &quot;f&quot;: {
+        &quot;0&quot;: 0,
+        &quot;1&quot;: 0,
+        &quot;2&quot;: 0,
+        &quot;3&quot;: 0,
+        &quot;4&quot;: 0,
+        &quot;5&quot;: 0,
+        &quot;6&quot;: 0,
+        &quot;7&quot;: 0,
+        &quot;8&quot;: 0,
+        &quot;9&quot;: 0,
+        &quot;10&quot;: 0,
+        &quot;11&quot;: 0,
+        &quot;12&quot;: 0,
+        &quot;13&quot;: 0,
+        &quot;14&quot;: 0
+      },
+      &quot;b&quot;: {
+        &quot;0&quot;: [
+          0,
+          0,
+          0
+        ],
+        &quot;1&quot;: [
+          0,
+          0
+        ],
+        &quot;2&quot;: [
+          0,
+          0
+        ],
+        &quot;3&quot;: [
+          0,
+          0
+        ],
+        &quot;4&quot;: [
+          0,
+          0
+        ],
+        &quot;5&quot;: [
+          0,
+          0
+        ],
+        &quot;6&quot;: [
+          0,
+          0
+        ],
+        &quot;7&quot;: [
+          0,
+          0
+        ],
+        &quot;8&quot;: [
+          0,
+          0
+        ],
+        &quot;9&quot;: [
+          0,
+          0
+        ],
+        &quot;10&quot;: [
+          0,
+          0
+        ],
+        &quot;11&quot;: [
+          0,
+          0
+        ],
+        &quot;12&quot;: [
+          0,
+          0
+        ],
+        &quot;13&quot;: [
+          0,
+          0,
+          0
+        ],
+        &quot;14&quot;: [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}</div>
+        <div class="d-none" id="test-global-config"></div>
+
+    </main>
+    <hr>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; jest-stare 2019</span>
+        </div>
+    </footer>
+</body>
+
+</html>

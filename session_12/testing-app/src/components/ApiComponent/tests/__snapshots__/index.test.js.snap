@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApiComponent basics should render initial layout 1`] = `
+Array [
+  <div
+    className="myComponentClass"
+  >
+    Component is here 
+    <button
+      onClick={[Function]}
+    >
+      Click me to call an API
+    </button>
+  </div>,
+]
+`;

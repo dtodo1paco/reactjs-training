@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter basics should match snapshot 1`] = `
+Array [
+  <div
+    className="counter"
+  >
+    <h2>
+      Number of clicks: 
+      1
+    </h2>
+    <p>
+       This is my component. Please click it!
+    </p>
+    <button
+      onClick={[Function]}
+    >
+      Increment!
+    </button>
+  </div>,
+]
+`;
