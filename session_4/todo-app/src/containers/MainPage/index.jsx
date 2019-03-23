@@ -12,6 +12,8 @@ class MainPage extends Component {
     }
   }
 
+
+
   onAddTodo = (text) => {
     const {todos} = this.state
 
