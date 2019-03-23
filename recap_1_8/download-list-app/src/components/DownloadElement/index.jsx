@@ -8,28 +8,43 @@ class DownloadElement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // your state here
+      country: null,
+      error: null,
     }
   }
 
-  // your handlers here
+  handleClick = (e) => {
+    e.preventDefault();
+    fetch(buildURL(this.props.name))
+    .then( response => {
+        if (response.status === 200) {
+          response.json()
+            .then( results => {
+              const country = results[0];
+              console.log("country: " + results)
+              this.setState({country});
+            })
+          .catch(error => {
+              this.setState({error})
+            })
+        }
+      })
+    .catch(error => {
+        this.setState({error})
+      })
+  }
 
   render() {
-    // read props
     const { label } = this.props;
-
-    // your dynamic info here
-    const countryInfo = false;
-
-
-    let description = 'Click to load info';
-    if (countryInfo) {
+    const { country } = this.state;
+    let description = '';
+    if (country) {
       description = (
         <ul>
-          <li>Area:  {countryInfo.area}</li>
-          <li>Population:  {countryInfo.population}</li>
-          <li>Capital:  {countryInfo.capital}</li>
-          <li>Subregion:  {countryInfo.subregion}</li>
+          <li>Area:  {country.area}</li>
+          <li>Population:  {country.population}</li>
+          <li>Capital:  {country.capital}</li>
+          <li>Subregion:  {country.subregion}</li>
         </ul>
       );
     }
@@ -37,15 +52,15 @@ class DownloadElement extends React.Component {
       <li>
         <h3>{label}</h3>
         {
-        countryInfo &&
-        <img src={countryInfo.flag} />
-          }
+          country &&
+           <img src={country.flag} />
+        }
         {
-        !countryInfo &&
-        <a href='#void'>
-          <i className="fa fa-download" aria-hidden="true"></i>
-        </a>
-          }
+          !country &&
+            <a href='#void' onClick={this.handleClick}>
+              <i className="fa fa-download" aria-hidden="true"></i>
+            </a>
+        }
         <span className="info">
           <p>{description}</p>
         </span>
