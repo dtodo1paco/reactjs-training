@@ -1,0 +1,22 @@
+.country-card-container-1 {
+
+}
+
+.country-name {
+    font-size: 0.9rem;
+}
+
+.country-region {
+    font-size: 0.7rem;
+}
+
+.country-page,
+.country-name,
+.country-region {
+    line-height: 2;
+}
+
+span {
+    display: block;
+    text-align: justify;
+}

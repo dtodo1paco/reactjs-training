@@ -1,0 +1,9 @@
+
+ul.pagination li.first {
+    margin-right: 0.5em;
+}
+
+ul.pagination li.last {
+    margin-left: 0.5em;
+}
+
