@@ -1,0 +1,57 @@
+
+.user-info {
+    display: block;
+    flex-wrap: wrap;
+}
+
+.user-info__avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 1em;
+    float: left;
+}
+
+.user-info__text {
+    text-decoration: none;
+    flex: 1;
+}
+
+.user-info__title {
+    font-size: 20px;
+}
+
+.user-info__title, .user-info__bio {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-info__stats {
+    list-style: none;
+    padding: 1em;
+    flex: 1;
+    display: flex;
+    background-color: gainsboro;
+}
+
+.user-info__stats a {
+    color: #0202fe;
+    text-decoration: none;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+.user-info__stat {
+    flex: 1;
+}
+
+.user-info__stat p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.user-into__tips {
+
+}

@@ -1,0 +1,19 @@
+
+header {
+    background-color: #3c3f41;
+    color: #fff;
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+header h1 {
+    line-height: 1;
+    margin: 0;
+    font-weight: 200;
+    float: left;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}

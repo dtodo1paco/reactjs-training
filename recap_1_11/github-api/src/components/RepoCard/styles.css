@@ -1,0 +1,25 @@
+.repo-card {
+    background-color: lavender;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+.repo-card-container {
+
+}
+
+.repo-name {
+    font-size: 1.2rem;
+}
+
+.repo-name img {
+    height: 26px;
+}
+
+.repo-info {
+    font-size: 0.9rem;
+    display: inline-grid;
+}
+
+.repo-description {
+    padding-top: 0.5em;
+}
