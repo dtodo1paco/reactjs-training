@@ -1,0 +1,11 @@
+.myComponent {
+  text-align: center;
+
+  &-title {
+    font-size: 1.5em;
+  }
+
+  &-intro {
+    font-size: large;
+  }
+}
